@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Form from "./components/Form";
+import List from "./components/List";
+import "./App.css";
 
-function App() {
+//Here we taken input data from Form and updated and added data by addDataHandler into new array and return that to data in useState by destructing so our updated and jaise jaise input aata jayega form se data me add hoga as array
+//Then we passed data to List compo as items
+
+const App = () => {
+  const [data, setData] = useState([]); //if we use useState('') then this treat data as an string and in using map method in list component showing map fn is not defined because map is for array only, but below in addHandler fn we returned array so we have to pass array in useState([])
+
+  const addDataHandler = (gotData) => {
+    setData((prevdata) => {
+      return [gotData, ...prevdata];
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Form showData={addDataHandler} />
+      <List items={data} />
     </div>
   );
-}
+};
 
 export default App;
